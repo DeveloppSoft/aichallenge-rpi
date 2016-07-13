@@ -28,8 +28,8 @@ def install_website_packages():
     """ Install system packages required for the website """
     pkg_list = ["apache2", "php5", "libapache2-mod-php5", "php5-mysql",
             "memcached", "php5-memcache", "php5-curl", "zip", "nodejs",
-            "cvs", "openjdk-6-jdk", "ant", "icedtea-plugin",
-            "python-setuptools", "dvipng", "texlive-latex-base"]
+            "cvs", "ant", "icedtea-plugin",
+            "python-setuptools", "dvipng", "texlive-latex-base", "openjdk-7-jdk"]
     install_apt_packages(pkg_list)
 
 def setup_base_files(opts):
@@ -140,9 +140,9 @@ def setup_website(opts):
             with open("server_info.php", "w") as si_file:
                 si_file.write(si_contents)
         # setup pygments flavored markdown
-        run_cmd("easy_install ElementTree")
-        run_cmd("easy_install Markdown")
-        run_cmd("easy_install Pygments")
+        #run_cmd("easy_install ElementTree") # Already in stdlib
+        run_cmd("pip install markdown")
+        run_cmd("pip install pygments")
         if not os.path.exists("aichallenge.wiki"):
             run_cmd("git clone git://github.com/aichallenge/aichallenge.wiki.git")
             run_cmd("python setup.py")
@@ -285,7 +285,7 @@ def get_options(argv):
     return options
 
 def main(argv=["server_setup.py"]):
-    check_ubuntu_version()
+    #check_ubuntu_version()
     opts = get_options(argv)
     with Environ("DEBIAN_FRONTEND", "noninteractive"):
         for install in opts.installs:

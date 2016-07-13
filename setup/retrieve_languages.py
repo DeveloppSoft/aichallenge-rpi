@@ -37,7 +37,7 @@ out_dir = os.path.abspath(sys.argv[1])
 if not os.path.isdir(out_dir):
     print "Destination directory does not exist"
     sys.exit(1)
-
+"""
 with CD(out_dir):
     print "Downloading files to %s" % (out_dir,)
     for url, filename in sources:
@@ -45,3 +45,4 @@ with CD(out_dir):
             run_cmd("wget -U NewName/1.0 '%s' -O %s" % (url, filename))
         except CmdError, exc:
             print >>sys.stderr, str(exc)
+"""
